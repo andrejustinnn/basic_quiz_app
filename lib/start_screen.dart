@@ -2,8 +2,9 @@ import 'package:basic_quiz_app/styled_text.dart';
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen({super.key});
+  const StartScreen(this.startQuiz, {super.key});
 
+  final void Function() startQuiz;
   @override
   Widget build(context) {
     return Center(
@@ -30,7 +31,7 @@ class StartScreen extends StatelessWidget {
             height: 18,
           ),
           OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: startQuiz,
               style: OutlinedButton.styleFrom(
                 // padding: const EdgeInsets.only(), // all padding 3 disemua sisi
                 // padding: const EdgeInsets.only(
