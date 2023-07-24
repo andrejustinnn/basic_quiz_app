@@ -14,7 +14,22 @@ class ResultsScreen extends StatelessWidget {
   final void Function() onRestart;
   final void Function() onBack;
 
-  List<Map<String, Object>> getSummaryData() {
+  // List<Map<String, Object>> getSummaryData() {
+  //   final List<Map<String, Object>> summary = [];
+
+  //   for (var i = 0; i < chosenAnswers.length; i++) {
+  //     summary.add({
+  //       'question_index': i,
+  //       'question': questions[i].question,
+  //       'correct_answer': questions[i].answers[0],
+  //       'user_answer': chosenAnswers[i],
+  //     });
+  //   }
+
+  //   return summary;
+  // }
+  // alternative tapi sama jika function tidak menerima parameter, GETTER
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswers.length; i++) {
@@ -31,11 +46,13 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summary = getSummaryData();
     final numTotalQuestions = questions.length;
-    final numCorrectQuestion = summary.where((data) {
-      return data['correct_answer'] == data['user_answer'];
-    }).length;
+    // final numCorrectQuestion = summaryData.where((data) {
+    //   return data['correct_answer'] == data['user_answer'];
+    // }).length;
+    final numCorrectQuestion = summaryData
+        .where((data) => data['correct_answer'] == data['user_answer'])
+        .length;
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -50,7 +67,7 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            QuestionsSummary(summary),
+            QuestionsSummary(summaryData),
             const SizedBox(
               height: 30,
             ),
