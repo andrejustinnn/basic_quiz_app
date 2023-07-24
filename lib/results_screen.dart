@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen(
-      {super.key, required this.chosenAnswers, required this.onRestart});
+      {super.key,
+      required this.chosenAnswers,
+      required this.onRestart,
+      required this.onBack});
 
   final List<String> chosenAnswers;
   final void Function() onRestart;
+  final void Function() onBack;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
@@ -60,8 +64,20 @@ class ResultsScreen extends StatelessWidget {
                     style: BorderStyle.solid,
                   ),
                 ),
-                icon: const Icon(Icons.restart_alt_rounded),
-                label: const Text('Restart Quiz'))
+                icon: const Icon(Icons.refresh_rounded),
+                label: const Text('Restart Quiz')),
+            OutlinedButton.icon(
+                onPressed: onBack,
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  textStyle: const TextStyle(fontSize: 18),
+                  side: const BorderSide(
+                    color: Colors.white,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+                icon: const Icon(Icons.home_rounded),
+                label: const Text('Back to Home'))
           ],
         ),
       ),
