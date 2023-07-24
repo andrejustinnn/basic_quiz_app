@@ -5,12 +5,14 @@ class StyledText extends StatelessWidget {
   const StyledText(this.text,
       {this.size = 28,
       this.color = Colors.white,
+      this.align = TextAlign.left,
       super.key}); //langsung terhubung
 
   final String
       text; // final karena saat menggunakan widget ini hanya akan assign sekali.
   final double size;
   final Color color;
+  final TextAlign align;
 
   @override
   Widget build(context) {
@@ -20,6 +22,7 @@ class StyledText extends StatelessWidget {
         color: color,
         fontSize: size,
       ),
+      textAlign: align,
     );
   }
 }

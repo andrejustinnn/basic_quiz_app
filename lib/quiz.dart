@@ -1,4 +1,6 @@
+import 'package:basic_quiz_app/datas/questions.dart';
 import 'package:basic_quiz_app/questions_screen.dart';
+import 'package:basic_quiz_app/results_screen.dart';
 import 'package:basic_quiz_app/start_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +8,7 @@ const startAlignment = Alignment.topLeft;
 const endAlignment = Alignment.topRight;
 const colors = [Colors.blueAccent, Colors.lightBlue];
 
+// manage state
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
   @override
@@ -15,12 +18,25 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  final List<String> selectedAnswer = [];
   var activeScreen = 'start-screen';
   void switchScreen() {
     setState(() {
       activeScreen = 'questions-screen';
     });
   }
+
+  void chooseAnswer(String answer) {
+    selectedAnswer.add(answer);
+
+    if (selectedAnswer.length == questions.length) {
+      setState(() {
+        activeScreen = 'results-screen';
+        // selectedAnswer.clear();
+      });
+    }
+  }
+
   // jika pakai initstate
   // Widget? activeScreen;
   // @override
@@ -33,6 +49,12 @@ class _QuizState extends State<Quiz> {
   //     activeScreen = const QuestionsScreen();
   //   });
   // }
+  void restartQuiz() {
+    setState(() {
+      activeScreen = 'questions-screen';
+      selectedAnswer.clear();
+    });
+  }
 
   @override
   Widget build(context) {
@@ -42,7 +64,12 @@ class _QuizState extends State<Quiz> {
     Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'questions-screen') {
-      screenWidget = const QuestionsScreen();
+      screenWidget = QuestionsScreen(onSelectedAnswer: chooseAnswer);
+    } else if (activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        chosenAnswers: selectedAnswer,
+        onRestart: restartQuiz,
+      );
     }
 
     return MaterialApp(
